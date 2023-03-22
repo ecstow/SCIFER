@@ -44,6 +44,29 @@ print dict[key] " : " key
  grep -v -w "1" ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count.txt > ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_nonunique.txt 
  cut -b 9-66 ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_unique.txt > ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_unique_cut.txt
  cut -b 9-66 ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_nonunique.txt > ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_nonunique_cut.txt 
+ mkdir sam_files
  while read line in file; do grep $line ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s.sam > ${line}_unique.sam; done < ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_unique_cut.txt
  while read line in file; do grep $line ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s.sam > ${line}_unique.sam; done < ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_nonunique_cut.txt 
+ mv *_unique.sam sam_files/
  
+ #Add header to all output .sam files, convert to .bam, and merge all files.
+ for file in sam_files/*.sam; do (head -30 <top30_sam_hg38_MCF7.txt> ; cat $file) > ${file}_header.sam; done
+ for file in sam_files/*_header.sam; do samtools view -bS $file> ${file}_merge.bam; done
+ samtools merge ${prefix}_L1exp_reads_unique.bam sam_files/*_merge.bam
+ samtools view ${prefix}_L1exp_reads_unique.bam > ${prefix}_L1exp_reads_unique.sam
+ 
+ #Extract cell barcodes into individual .sam files, convert to bam, strand separate reads and count reads that overlap with repeat element annotations.
+ mkdir sam_files_2
+ while read line in file; do grep $line ${prefix}_L1exp_reads_unique.sam
+ | head -1  > sam_files_2/${line}_barcode.sam; done < <list_of_cell_barcodes.txt>
+ for file in sam_files_2/*.sam; do (head -30 <top30_sam_hg38_MCF7.txt> ; cat $file) > ${file}_header.sam; done
+ for file in sam_files_2/*_header.sam; do samtools view -bS $file> sam_files_2/${file}.bam; done
+ 
+ #Strand separate reads and count reads that overlap with repeat element annotations.
+ samtools view -h sam_files_2/${file}.bam | awk 'substr($0,1,1) == "@" || $2 == 0 {print}' | samtools view -bS - > sam_files_2/${file}_top.bam
+ samtools view -h sam_files_2/${file}.bam | awk 'substr($0,1,1) == "@" || $2 == 16 {print}' | samtools view -bS - > sam_files_2/${file}_bottom.bam
+ mkdir read_counts
+ bedtools coverage -abam <expressed_L1_bedfile_plus.bed> -b sam_files_2/${file}_top.bam > read_counts/${file}_plus.txt
+ bedtools coverage -abam <expressed_L1_bedfile_minus.bed> -b sam_files_2/${file}_bottom.bam > read_counts/${file}_minus.txt
+ 
+
