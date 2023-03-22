@@ -38,4 +38,12 @@ for (key in dict)
  if(dict[key]>1)
 print dict[key] " : " key
  }' ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count.txt
-
+ 
+ #Create a list of unique barcode UMIs and duplicated barcode UMIs. Extract reads from each list and only keep one of each duplicated barcode-UMI.
+ grep -w "1" ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count.txt > ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_unique.txt
+ grep -v -w "1" ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count.txt > ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_nonunique.txt 
+ cut -b 9-66 ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_unique.txt > ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_unique_cut.txt
+ cut -b 9-66 ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_nonunique.txt > ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_nonunique_cut.txt 
+ while read line in file; do grep $line ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s.sam > ${line}_unique.sam; done < ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_unique_cut.txt
+ while read line in file; do grep $line ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s.sam > ${line}_unique.sam; done < ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom_expressedL1s_51_count_nonunique_cut.txt 
+ 
