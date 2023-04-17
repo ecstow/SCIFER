@@ -12,7 +12,8 @@ samtools view -h ${prefix}_bowtie_hg38_sorted_rmdup.bam | awk 'substr($0,1,1) ==
 samtools view -h ${prefix}_bowtie_hg38_sorted_rmdup.bam | awk 'substr($0,1,1) == "@" || $2 == 16 {print}' | samtools view -bS - > ${prefix}_bowtie_hg38_sorted_rmdup_bottom.bam
 samtools merge ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom.bam ${prefix}_bowtie_hg38_sorted_rmdup_top.bam ${prefix}_bowtie_hg38_sorted_rmdup_bottom.bam 
 samtools view -h ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom.bam > ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom.sam
-while read line in file; do grep $line ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom.sam > ${line}_barcode.sam; done < <list_of_barcodes>
+#list of barcodes comes from 10x output: /outs/filtered_feature_bc_matrix/barcodes.tsv
+while read line in file; do grep $line ${prefix}_bowtie_hg38_sorted_rmdup_top_bottom.sam > ${line}_barcode.sam; done < barcodes.tsv
 
 #These files will be used to determine number of mapped reads using
 for i in ls *.bam; do echo $(cat ${i} | samtools view -F 0x904 -c)_$i; done
