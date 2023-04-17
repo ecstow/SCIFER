@@ -3,4 +3,4 @@ Single Cell Implementation to Find Expressed Retrotransposons (SCIFER) aligns sc
 
 
 
-![SCIFER_workflow](https://user-images.githubusercontent.com/108097317/232575429-4b71b8d8-5615-4f8b-b4aa-cc43ef8d85d9.png)
+![SCIFER_workflow](https://user-images.githubusercontent.com/108097317/232575429-4b71b8d8-5615-4f8b-b4aa-cc43ef8d85d9.png|width=100)
