@@ -1,8 +1,8 @@
 # SCIFER
 Single Cell Implementation to Find Expressed Retrotransposons (SCIFER) aligns scRNA-Seq reads uniquely to the genome and extracts alignments from single cells by cell-specific barcodes.
 
-![SCIFERLight]"https://user-images.githubusercontent.com/108097317/232624668-330271f9-604d-48fb-9c34-fec3f167b3ff.png"#gh-light-mode-only
-![SCIFERDark]"https://user-images.githubusercontent.com/108097317/232625451-73aee1af-3f72-46bf-baf1-faacb2f34fe9.png"#gh-dark-mode-only>
+![SCIFER_workflow](https://user-images.githubusercontent.com/108097317/232626100-f2ed1c84-1c60-4c1c-b084-a681a6b5f46e.png)#gh-light-mode-only
+![SCIFER_workflow_dark](https://user-images.githubusercontent.com/108097317/232626120-8158857b-f97c-475c-babb-fb22b8a78050.png)#gh-dark-mode-only
 
 Download from GitHub:
 ```
