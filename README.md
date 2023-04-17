@@ -5,7 +5,9 @@ Single Cell Implementation to Find Expressed Retrotransposons (SCIFER) aligns sc
 
 # Getting Started
 Download from GitHub:
-<git clone https://github.com/ecstow/SCIFER>
+```
+git clone https://github.com/ecstow/SCIFER
+```
 
 # Additional Details
 Our Mobile DNA paper introducing SCIFER: https://mobilednajournal.biomedcentral.com/articles/10.1186/s13100-022-00276-0
