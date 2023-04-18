@@ -1,6 +1,11 @@
+#!/bin/bash
+
+#Usage: for i in *1.fastq; do bash Step1_SCIFER_change_headers.sh $i; done
+
+#This script reassigns barcode-UMIs in R1 fastq file to header in R2 fastq file so that this information is not lost during bowtie alignment of R2.
+
 prefix=${1%_[1-2].fastq}  
 
-#Reassign barcode-UMIs in R1 fastq file to header in R2 fastq file.
 #Print every other line to obtain only barcode-UMIs/indeces and scores. Delete even lines to obtain only barcode-UMIs.
 awk '!(NR%2)' ${prefix}"_1.fastq" > ${prefix}_barcode_score.fastq
 sed 'n; d' ${prefix}_barcode_score.fastq > ${prefix}_barcode.fastq
