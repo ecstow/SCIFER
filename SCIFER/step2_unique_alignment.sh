@@ -7,7 +7,7 @@
 bowtie=$(which bowtie) # use version 0.12.8
 samtools=$(which samtools) # version 1.5 tested
 bedtools=$(which bedtools) # use version 2.27.1
-hg38_index='/SCIFER/annotations/hg38_chr_labels'
+hg38_index= #create bwt1 index
 barcodes= #experiment specific list of cell barcodes
 header='SCIFER/annotations/header.txt'
 FL_L1s_plus='SCIFER/annotations/FL-L1-BLAST_RM_plus_hg38_1_2021.bed'
