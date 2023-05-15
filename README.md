@@ -9,7 +9,7 @@ Download from GitHub:
 git clone https://github.com/ecstow/SCIFER
 ```
 
-Before running SCIFER, you will need the hg38 reference genome in fasta format, with Bowtie1 index. Add path to the index files in Step2:
+Before running SCIFER, you will need the hg38 reference genome in fasta format, with Bowtie1 index. Add path to the index file in Step2:
 ```
 wget http://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
 zcat hg38.fa.gz > hg38.fa
