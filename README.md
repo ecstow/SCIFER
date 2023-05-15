@@ -9,5 +9,12 @@ Download from GitHub:
 git clone https://github.com/ecstow/SCIFER
 ```
 
+Before running SCIFER, you will need the hg38 reference genome in fasta format, with Bowtie1 index. Add path to the index files in Step2:
+```
+wget http://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
+zcat hg38.fa.gz > hg38.fa
+bowtie-build hg38.fa hg38
+```
+
 # Additional Details
 Our Mobile DNA paper introducing SCIFER: https://mobilednajournal.biomedcentral.com/articles/10.1186/s13100-022-00276-0
