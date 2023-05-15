@@ -1,4 +1,4 @@
-#This script calculates the FPKM from the number of L1 mapped reads and million mapped reads.
+#This script calculates the FPKM from the number of L1 mapped reads and million mapped reads. Begin with the output files from step4 as well as csv files with the number of million mapped reads occupying rows in an equal width as the plus and minus read files. 
 
 import glob
 import pandas as pd
